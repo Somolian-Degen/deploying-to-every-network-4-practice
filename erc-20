@@ -1,0 +1,30 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.6;
+
+contract Token {
+    string public name;
+    string public symbol;
+    unit256 public decimals;
+    unit256 public totalSupply;
+
+    mapping(address => unit256) public balanceOf;
+
+    event Transfer(address indexed from, address indexed to, unit256 value);
+
+
+    constructor(string memory _name, string memory _symbol, unit _decimals) {
+        name = _name;
+        symbol = _symbol;
+        decimals = _decimals;
+        totalSupply = _totalSupply;
+        balanceOf[msg.sender] = totalSupply;
+    }
+    
+    functon transfer(address _to, unit256 _value) external returns (bool success) {
+        require(balance0f[msg.sender] >= _value);
+        balanceOf[msg.sender] = bananceOf[msg.sender] - (_value;)
+        bananceOf[_to] = bananceOf[_to] + (_value);
+        emit Transfer(_msg.sender, _to, _value);
+        return true;
+    }
+}
