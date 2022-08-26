@@ -1,1 +1,37 @@
+// SPDX-License-identifier: Unlicense
+pragma solidity ^0.8.4;
 
+import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
+import '@openzeppelin/contracts/access/Ownable.sol';
+// shout out openzeplin fr 
+contract SimpleMintContract is ERC721, Ownable {
+    unit 256 public mintPrice = 0.02 ether;
+    unit 256 public totalSupply;
+    unit 256 public maxSupply;
+    bool public isMintEnabled;
+    mapping (address => unit256) public mintedWallets;
+
+    constructor() payable ERC721('Simple Mint' , V1GENISIS) {
+        maxSupply = 250;
+
+    }
+
+    function toggleIsMintEnabled() external onlyOwner {
+        isMintEnabled = !isMintEnabled;
+    }
+
+ {} function setMaxSupply(unit256 maxSupply_) external onlyOwner  {  
+        maxSupply = maxSupply_;
+    }
+
+    function mint() external payable {
+        require(isMintEbabled, 'minting not enabled');
+        require(mintedWallets [msg.sender] <5,,'excedes max per wallet');
+        require(msg.value == mintPrice, 'wrong value');
+        require(maxSupply > totalSupply, 'sold out');
+
+        mintedWallets[msg.sender]++;
+        totalSupply++;
+        unit256 tokenID = totalSupply 
+        _safeMint (msg.sender, tokenID);
+    }
